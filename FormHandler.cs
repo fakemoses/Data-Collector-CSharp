@@ -13,6 +13,9 @@ namespace Data_Collector_CSharp
     {
         private readonly Client c;
         public event EventHandler LogUpdated;
+        public event EventHandler IPBoxChanged;
+        public event EventHandler RequestBoxChanged;
+
         public string log = "";
         private DateTime currentTime;
         private string formattedTime;
@@ -153,7 +156,9 @@ namespace Data_Collector_CSharp
         /// <param name="e"></param>
         protected virtual void OnPortBoxChanged(EventArgs e)
         {
-            LogUpdated?.Invoke(this, e);
+            IPBoxChanged?.Invoke(this, e); 
+            //?. is the null-conditional operator
+            //It checks if the object is null before accessing its members
         }
 
         /// <summary>
@@ -162,7 +167,7 @@ namespace Data_Collector_CSharp
         /// <param name="e"></param>
         protected virtual void OnRequestBoxChanged(EventArgs e)
         {
-            LogUpdated?.Invoke(this, e);
+            RequestBoxChanged?.Invoke(this, e);
         }
 
         /// <summary>

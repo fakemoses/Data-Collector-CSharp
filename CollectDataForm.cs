@@ -24,7 +24,10 @@ namespace Data_Collector_CSharp
             portBox.Text = handler.GetPort().ToString();
             requestBox.Text = handler.GetRequestString();
 
+            // Add event handlers
             handler.LogUpdated += UpdateLogBox;
+            handler.IPBoxChanged += UpdateIPBox;
+            handler.RequestBoxChanged += UpdateRequestBox;
         }
 
         /// <summary>
@@ -45,6 +48,42 @@ namespace Data_Collector_CSharp
                 logBox.Text = handler.log;
                 logBox.SelectionStart = logBox.TextLength;
                 logBox.ScrollToCaret();
+            }
+
+        }
+
+        /// <summary>
+        /// Update the IP Box from the handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateIPBox(object? sender, EventArgs e)
+        {
+            if (IPBox.InvokeRequired)
+            {
+                IPBox.Invoke(new MethodInvoker(delegate { IPBox.Text = handler.GetPort().ToString(); }));
+            }
+            else
+            {
+                IPBox.Text = handler.GetPort().ToString();
+            }
+
+        }
+
+        /// <summary>
+        /// Update the request box from handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateRequestBox(object? sender, EventArgs e)
+        {
+            if (IPBox.InvokeRequired)
+            {
+                requestBox.Invoke(new MethodInvoker(delegate { requestBox.Text = handler.GetRequestString(); }));
+            }
+            else
+            {
+                requestBox.Text = handler.GetRequestString();
             }
 
         }
